@@ -33,7 +33,7 @@ public class DeliveryController {
 	public ResponseEntity<String> Ping() {
 
 		System.out.println("Coming for Delivery Ping");
-		return ResponseEntity.status(HttpStatus.OK).body("OK");
+		return ResponseEntity.status(HttpStatus.OK).body("Coming for Delivery Ping");
 	}
 
 	@GetMapping("/all-deliveries")
@@ -57,13 +57,12 @@ public class DeliveryController {
 	}
 
 	@PostMapping("/delivery")
-	public ResponseEntity<List<Delivery>> creatingDelivery(@RequestBody Delivery delivery){
+	public ResponseEntity<Delivery> creatingDelivery(@RequestBody Delivery delivery){
 		System.out.println("DeliveryRiderName: "+delivery.getDeliveryRiderName()+ 
 				" DeliveryStatus: "+delivery.getDeliveryStatus()+
 				" DeliveryDate: "+delivery.getDeliveryDate());
-		deliveryService.saveDelivery(delivery);
-		List<Delivery> orders = deliveryService.getAllDeliveryDetails();
-		return ResponseEntity.status(HttpStatus.OK).body(orders);
+		Delivery deliveryResponse = deliveryService.saveDelivery(delivery);
+		return ResponseEntity.status(HttpStatus.OK).body(deliveryResponse);
 	}
 
 	@DeleteMapping("/delivery/{deliveryId}")
